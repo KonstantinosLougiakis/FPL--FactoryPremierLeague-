@@ -9,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FPL-App';
+  name = 'Konstantinos';
+
+  person = {
+    givenName: 'Konstantinos',
+    surName: 'Lougiakis',
+    age: 27,
+    email: 'lougiokostas@gmail.com'
+  }
 }

@@ -1,8 +1,32 @@
-<div class="container mt-4">
-    <div class="d-flex gap-5 align-items-center">
-        <div class="bg-primary text-bg-primary rounded-3">
-            <h1 class="m-2">FPL</h1>
+<div class="container">
+    <div class="container mt-4">
+        <div class="d-flex gap-5 align-items-center">
+            <div class="bg-primary text-bg-primary rounded-3">
+                <h1 class="m-2">FPL</h1>
+            </div>
+            <h1 class="bg-opacity-100 bg-body text-danger-emphasis rounded-3 m-2 text-decoration-underline">Factory Premier League</h1>
         </div>
-        <h1 class="bg-opacity-100 bg-body text-danger-emphasis rounded-3 m-2 text-decoration-underline">Factory Premier League</h1>
     </div>
+
+    <table class="table table-bordered w-50">
+        <caption class="caption-top fw-bold bg-primary text-light text-center rounded-3">
+            Personal Information
+        </caption>
+        <tr>
+            <td class="fw-semibold text-end">Firstname:</td>
+            <td class="ps-2">{{ person.givenName }}</td>
+        </tr>
+        <tr>
+            <td class="fw-semibold text-end">Lastname:</td>
+            <td class="ps-2">{{ person.surName }}</td>
+        </tr>
+        <tr>
+            <td class="fw-semibold text-end">Age:</td>
+            <td class="ps-2">{{ person.age }}</td>
+        </tr>
+        <tr>
+            <td class="fw-semibold text-end">Email:</td>
+            <td class="ps-2">{{ person.email }}</td>
+        </tr>
+    </table>
 </div>
