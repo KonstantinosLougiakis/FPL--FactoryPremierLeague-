@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { PersonService } from 'src/app/services/player.service';
-import { Person } from 'src/app/shared/interfaces/person';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-player-list',
@@ -10,14 +8,5 @@ import { Person } from 'src/app/shared/interfaces/person';
   styleUrl: './player-list.component.css'
 })
 export class PlayerListComponent {
-  persons: Person[] = [];
 
-  constructor(private personService: PersonService) {}
-    
-
-  ngOnInit(): void {
-    this.personService.getPersons().subscribe((persons) => {
-      this.persons = persons;
-    });
-  }
 }

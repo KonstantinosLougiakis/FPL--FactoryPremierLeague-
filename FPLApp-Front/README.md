@@ -1,3 +1,5 @@
+# Step 6: Routing
+
 # Step 5: Finalize the template in which the personal information of each user of the app are presented
 
 # Step 4: Creating a component in which the personal information of each user of the app is written in
