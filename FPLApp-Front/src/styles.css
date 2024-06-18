@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.logo {
+    background-image: url('assets/images/PremierLeague.jpg.jpg');
+    position: absolute;
+    top: 0%;
+    right: 15%;
+    width: 15%;
+    height: 15%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    padding: 50px;
+}

@@ -1,3 +1,5 @@
+# Step 7: Converting the menu to its final appearance
+
 # Step 6: Routing
 
 # Step 5: Finalize the template in which the personal information of each user of the app are presented
