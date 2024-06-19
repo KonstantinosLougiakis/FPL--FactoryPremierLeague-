@@ -1,0 +1,52 @@
+mat-card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+  
+mat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+  
+mat-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+  
+.team-name {
+    font-weight: bold;
+    font-size: 24px;
+    color: #333;
+    text-transform: uppercase;
+    margin: 0;
+}
+  
+.team-city,
+.team-nickname,
+.team-manager,
+.team-year,
+.team-championships {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+  
+mat-card-content p {
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+  
+mat-card-content {
+    padding: 16px;
+    background-color: #fff;
+}
