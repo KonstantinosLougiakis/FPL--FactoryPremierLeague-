@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Team } from '../shared/interfaces/teams';
 
 const TEAMS_URL = 'http://localhost:8000/api/teams/';
-const PLAYERS_URL = 'http://localhost:8000/api/players/';
+const PLAYERS_URL = 'http://localhost:8000/api/player/';
 
 @Injectable({
   providedIn: 'root'
