@@ -1,15 +1,19 @@
 <div class="container">
-    <div class="container mt-4">
+    <div class="container mt-4 rounded-3 shadow-sm p-4" style="background-color: #4b6cb7;">
         <div class="d-flex gap-5 align-items-center">
-            <div class="bg-primary text-bg-primary rounded-3">
-                <h1 role="button" class="m-2" routerLink="welcome">FPL</h1>
+            <div class="border border-dark rounded-3 overflow-hidden">
+                <div class="bg-warning text-dark fpl-button p-2">
+                    <h1 role="button" class="m-0 text-dark fw-bold" routerLink="welcome">FPL</h1>
+                </div>
             </div>
-            <h1 role="button" class="bg-opacity-100 bg-body text-danger-emphasis rounded-3 m-2 text-decoration-underline" routerLink="welcome">Factory Premier League</h1>
+            <h1 role="button" class="bg-transparent text-white rounded-3 m-0 text-uppercase fpl-title text-decoration-underline">
+                Factory Premier League
+            </h1>
         </div>
     </div>
-<br>
-    <div class="d-flex flex-row gap-2">
-        <div class="d-flex flex-column text-nowrap bg-white p-2 fst-italic">
+    <br>
+    <div class="d-flex flex-row gap-2 bg-white rounded-3 shadow-sm">
+        <div class="d-flex flex-column text-nowrap p-2 fst-italic">
             <app-my-menu></app-my-menu>
         </div>
         <div class="flex-grow-1 p-2 text-nowrap">

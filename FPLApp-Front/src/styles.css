@@ -11,3 +11,9 @@
     z-index: -1;
     padding: 50px;
 } */
+
+body {
+    background-color: #f0f0f0; /* Light gray background */
+    font-family: 'Arial', sans-serif; /* Example font family */
+    color: #333333; /* Text color */
+}
