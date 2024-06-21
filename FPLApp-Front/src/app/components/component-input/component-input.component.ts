@@ -14,13 +14,15 @@ export class ComponentInputComponent {
     givenName: 'Konstantinos',
     surName: 'Lougiakis',
     age: 27,
-    email: 'lougiokostas@gmail.com'
+    email: 'lougiokostas@gmail.com',
+    password: '1234'
   };
 
   person1: Person = {
     givenName: 'Nikos',
     surName: 'Papadopoulos',
     age: 34,
-    email: 'papanikos@gmail.com'
+    email: 'papanikos@gmail.com',
+    password: '1234'
   };
 }
