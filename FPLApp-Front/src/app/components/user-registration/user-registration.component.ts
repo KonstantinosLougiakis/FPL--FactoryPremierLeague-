@@ -1,13 +1,14 @@
-// src/app/user-registration/user-registration.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
+  standalone: true,
+  styleUrls: ['./user-registration.component.css'],
+  imports: [ReactiveFormsModule, FormsModule]
 })
 export class UserRegistrationComponent implements OnInit {
   registrationForm: FormGroup;

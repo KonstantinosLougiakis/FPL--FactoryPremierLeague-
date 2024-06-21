@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MenuItem } from 'src/app/shared/interfaces/menu-item';
-import { NgModel } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-my-menu',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, FormsModule, ReactiveFormsModule],
   templateUrl: './my-menu.component.html',
   styleUrl: './my-menu.component.css'
 })

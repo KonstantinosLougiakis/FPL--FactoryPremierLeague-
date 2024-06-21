@@ -1,7 +1,6 @@
-<!-- src/app/user-registration/user-registration.component.html -->
 <div class="container mt-5">
-    <h2>Register</h2>
-    <form (ngSubmit)="onSubmit()">
+    <h2>Register ⬇</h2>
+    <form (ngSubmit)="onSubmit() " [formGroup]="registrationForm">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" formControlName="username" required>
