@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MenuItem } from 'src/app/shared/interfaces/menu-item';
+import { NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-my-menu',
@@ -15,5 +19,6 @@ export class MyMenuComponent {
     { text: 'Users', routerLink: 'for-directive' },
     { text: 'Teams', routerLink: 'teams' },
     { text: 'Players', routerLink: 'players' },
+    { text: 'Register', routerLink: 'register' },
   ];
 }

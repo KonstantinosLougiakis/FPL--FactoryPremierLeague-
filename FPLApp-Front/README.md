@@ -1,3 +1,5 @@
+# Step 8: Creating the User Registration and making some final changes for the app's appearance
+
 # Step 7: Converting the menu to its final appearance
 
 # Step 6: Routing
