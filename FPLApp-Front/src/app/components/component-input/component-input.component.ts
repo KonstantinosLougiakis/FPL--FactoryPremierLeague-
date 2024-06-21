@@ -15,7 +15,7 @@ export class ComponentInputComponent {
     surName: 'Lougiakis',
     age: 27,
     email: 'lougiokostas@gmail.com',
-    password: '1234'
+    // password: '1234'
   };
 
   person1: Person = {
@@ -23,6 +23,6 @@ export class ComponentInputComponent {
     surName: 'Papadopoulos',
     age: 34,
     email: 'papanikos@gmail.com',
-    password: '1234'
+    // password: '1234'
   };
 }

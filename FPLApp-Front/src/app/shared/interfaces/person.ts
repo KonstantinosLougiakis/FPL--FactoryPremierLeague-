@@ -3,5 +3,5 @@ export interface Person {
     surName: string;
     age: number;
     email: string;
-    password: string;
+    // password: string;
 }
