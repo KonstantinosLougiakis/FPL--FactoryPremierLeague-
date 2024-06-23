@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { map, debounceTime, switchMap, catchError } from 'rxjs/operators';
+import { passwordMatchValidator } from 'src/app/shared/password-match.directive';
 
 @Component({
   selector: 'app-user-registration',
@@ -30,7 +31,7 @@ export class UserRegistrationComponent implements OnInit {
       last_name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^[a-zA-Z]+$')]],
       password: ['', [Validators.required, Validators.minLength(4)]],
       confirm_password: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
+    }, { validators: passwordMatchValidator });
   }
 
   usernameValidator(control: AbstractControl) {
@@ -40,12 +41,6 @@ export class UserRegistrationComponent implements OnInit {
       map(isTaken => (isTaken ? { usernameTaken: true } : null)),
       catchError(() => of(null))
     );
-  }
-
-  passwordMatchValidator(group: FormGroup) {
-    const password = group.get('password').value;
-    const confirmPassword = group.get('confirm_password').value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
   onSubmit(): void {

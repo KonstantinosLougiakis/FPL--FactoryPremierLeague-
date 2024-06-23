@@ -1,13 +1,14 @@
 from rest_framework import generics, mixins, permissions, status
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+
 from teams.models import Team, Player
 from teams.api.serializers import TeamSerializer, PlayerSerializer
 from teams.api.permissions import IsAdminOrReadOnly, IsAdminOrReadOnlyForCreate
 from .serializers import UserLoginSerializer, UserRegistrationSerializer
-from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 
 class CheckUsernameView(generics.GenericAPIView):
     """
@@ -16,10 +17,8 @@ class CheckUsernameView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         username = request.query_params.get('username', None)
         if username:
-            if User.objects.filter(username=username).exists():
-                return Response({'available': False}, status=status.HTTP_200_OK)
-            else:
-                return Response({'available': True}, status=status.HTTP_200_OK)
+            is_taken = User.objects.filter(username=username).exists()
+            return Response({'available': not is_taken}, status=status.HTTP_200_OK)
         return Response({'error': 'Username parameter not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserRegistrationView(generics.CreateAPIView):
