@@ -1,15 +1,31 @@
-from rest_framework import generics
-from rest_framework import mixins
+from rest_framework import generics, mixins, permissions, status
+from rest_framework.response import Response
+from rest_framework.generics import get_object_or_404
 from teams.models import Team, Player
 from teams.api.serializers import TeamSerializer, PlayerSerializer
-from rest_framework.generics import get_object_or_404
-from rest_framework import permissions
 from teams.api.permissions import IsAdminOrReadOnly, IsAdminOrReadOnlyForCreate
-from rest_framework.response import Response
-from rest_framework import status
-from .serializers import UserRegistrationSerializer
+from .serializers import UserLoginSerializer, UserRegistrationSerializer
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+
+class CheckUsernameView(generics.GenericAPIView):
+    """
+    API view to check if a username is available.
+    """
+    def get(self, request, *args, **kwargs):
+        username = request.query_params.get('username', None)
+        if username:
+            if User.objects.filter(username=username).exists():
+                return Response({'available': False}, status=status.HTTP_200_OK)
+            else:
+                return Response({'available': True}, status=status.HTTP_200_OK)
+        return Response({'error': 'Username parameter not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserRegistrationView(generics.CreateAPIView):
+    """
+    API view to handle user registration.
+    """
     serializer_class = UserRegistrationSerializer
 
     def create(self, request, *args, **kwargs):
@@ -19,16 +35,40 @@ class UserRegistrationView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+class UserLoginView(generics.CreateAPIView):
+    """
+    API view to handle user login.
+    """
+    serializer_class = UserLoginSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = authenticate(username=serializer.validated_data['username'], password=serializer.validated_data['password'])
+        if user:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key}, status=status.HTTP_200_OK)
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+
 class TeamListCreateAPIView(generics.ListCreateAPIView):
+    """
+    API view to list and create teams.
+    """
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
     permission_classes = [IsAdminOrReadOnly]
 
 class TeamDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API view to retrieve, update, and delete a team.
+    """
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
 class PlayerCreateAPIView(generics.CreateAPIView):
+    """
+    API view to create a player within a specific team.
+    """
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
     permission_classes = [IsAdminOrReadOnly]
@@ -39,10 +79,16 @@ class PlayerCreateAPIView(generics.CreateAPIView):
         serializer.save(team=team)
 
 class PlayerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API view to retrieve, update, and delete a player.
+    """
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
 class PlayerListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    """
+    API view to list and create players.
+    """
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
     permission_classes = [IsAdminOrReadOnlyForCreate]
