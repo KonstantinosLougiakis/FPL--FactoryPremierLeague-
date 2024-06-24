@@ -9,6 +9,12 @@ from teams.models import Team, Player
 from teams.api.serializers import TeamSerializer, PlayerSerializer
 from teams.api.permissions import IsAdminOrReadOnly, IsAdminOrReadOnlyForCreate
 from .serializers import UserLoginSerializer, UserRegistrationSerializer
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+
+@csrf_exempt
+@ensure_csrf_cookie
+def get_csrf_token(request):
+    return Response({'success': True})
 
 class CheckUsernameView(generics.GenericAPIView):
     """

@@ -1,12 +1,30 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css'
 })
 export class WelcomeComponent {
-  name = 'Konstantinos';
+  
+  authService = inject(AuthService);
+  user?: any;
+
+  constructor() {
+    this.authService.login({
+        email: 'john@mail.com',
+        password: 'changeme',
+    }).subscribe((r)=>{
+        this.authService.getCurrentAuthUser().subscribe((r)=>console.log(r));
+        this.user = r;
+    });
+  }
+
+  logout() {
+    this.authService.logout();
+  }
 }

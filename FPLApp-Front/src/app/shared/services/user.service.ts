@@ -9,28 +9,30 @@ import { catchError, map } from 'rxjs/operators';
 export class UserService {
 
   private apiUrl = 'http://localhost:8000/api/';
-  private registerUrl = 'http://localhost:8000/api/register/';
-  private checkUsernameUrl = 'http://localhost:8000/api/check-username/';
+  private registerUrl = `${this.apiUrl}register/`;
+  private loginUrl = `${this.apiUrl}login/`;
+  private checkUsernameUrl = `${this.apiUrl}check-username/`;
 
   constructor(private http: HttpClient) {}
 
   register(user: any): Observable<any> {
-    const headers = new HttpHeaders().set('X-CSRFToken', localStorage.getItem('csrftoken') || '');
-    return this.http.post<any>(this.registerUrl, user);
+    const headers = new HttpHeaders().set('X-CSRFToken', this.getCookie('csrftoken'));
+    return this.http.post<any>(this.registerUrl, user, { headers });
   }
 
   login(user: any): Observable<any> {
-    return this.http.post<any>(this.registerUrl, user);
+    const headers = new HttpHeaders().set('X-CSRFToken', this.getCookie('csrftoken'));
+    return this.http.post<any>(this.loginUrl, user, { headers });
   }
 
   checkUsername(username: string): Observable<boolean> {
-    return this.http.post<{ isTaken: boolean }>(this.checkUsernameUrl, { username }).pipe(
-      map(response => response.isTaken),
+    return this.http.get<{ available: boolean }>(`${this.checkUsernameUrl}?username=${username}`).pipe(
+      map(response => !response.available),
       catchError(() => of(false))
     );
   }
 
-  private getCookie(name: string) {
+  private getCookie(name: string): string {
     let cookieValue = '';
     if (document.cookie && document.cookie !== '') {
       const cookies = document.cookie.split(';');
@@ -42,7 +44,6 @@ export class UserService {
         }
       }
     }
-
     return cookieValue;
   }
 }
