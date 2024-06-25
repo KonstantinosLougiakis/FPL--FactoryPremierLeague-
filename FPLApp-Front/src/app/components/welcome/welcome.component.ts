@@ -26,9 +26,10 @@ export class WelcomeComponent {
 
   logout() {
     this.authService.logout();
+    localStorage.clear();
   }
 
   refreshToken() {
-    this.authService.refreshToken().subscribe(()=> {});
+    this.authService.refreshToken()?.subscribe(()=> {});
   }
 }

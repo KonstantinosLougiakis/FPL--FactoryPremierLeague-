@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { map, debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { passwordMatchValidator } from 'src/app/shared/password-match.directive';
+import { Person, UserPerson } from 'src/app/shared/interfaces/person';
 
 @Component({
   selector: 'app-user-registration',
@@ -24,13 +25,13 @@ export class UserRegistrationComponent implements OnInit {
     this.registrationForm = this.fb.group({
       username: ['', 
         [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9]+$')],
-        [this.usernameValidator.bind(this)]
+        // [this.usernameValidator.bind(this)]
       ],
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^[a-zA-Z]+$')]],
       last_name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('^[a-zA-Z]+$')]],
       password: ['', [Validators.required, Validators.minLength(4)]],
-      confirm_password: ['', Validators.required]
+      // confirm_password: ['', Validators.required]
     }, { validators: passwordMatchValidator });
   }
 
@@ -44,8 +45,11 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registrationForm.valid) {
-      this.authService.register(this.registrationForm.value).subscribe(
+    if (this.registrationForm.valid) 
+      {
+        const user = this.registrationForm.value as UserPerson;
+        console.log(user);
+      this.authService.register(user).subscribe(
         response => {
           console.log('Registration successful', response);
           this.router.navigate(['/welcome']);

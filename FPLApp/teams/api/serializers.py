@@ -21,6 +21,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name']
         )
+        print(user)
+        user.save()
         return user
 
 class PlayerSerializer(serializers.ModelSerializer):

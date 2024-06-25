@@ -1,3 +1,4 @@
+from urllib import request
 from rest_framework import permissions
 
 class IsAdminOrReadOnly(permissions.IsAdminUser):
@@ -20,3 +21,14 @@ class IsAdminOrReadOnlyForCreate(permissions.BasePermission):
             return request.user and request.user.is_staff
         
         return False
+    
+# class isUserPerson(permissions.BasePermission):
+#     """
+#     Custom permission to only allow users to access their own data.
+#     """
+
+#     def has_permission(self, request, view):
+#         return request.user == view.get_object()
+    
+#     # if request.method == 'POST':
+#     #     # return request.user and request.user.is_staff

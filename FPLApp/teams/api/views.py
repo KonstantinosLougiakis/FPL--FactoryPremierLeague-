@@ -10,6 +10,8 @@ from teams.api.serializers import TeamSerializer, PlayerSerializer
 from teams.api.permissions import IsAdminOrReadOnly, IsAdminOrReadOnlyForCreate
 from .serializers import UserLoginSerializer, UserRegistrationSerializer
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 @csrf_exempt
 @ensure_csrf_cookie
@@ -20,6 +22,9 @@ class CheckUsernameView(generics.GenericAPIView):
     """
     API view to check if a username is available.
     """
+
+    permission_classes = [permissions.AllowAny]
+
     def get(self, request, *args, **kwargs):
         username = request.query_params.get('username', None)
         if username:
