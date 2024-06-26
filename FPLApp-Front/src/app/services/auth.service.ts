@@ -18,7 +18,7 @@ export class AuthService {
   constructor() { }
 
   login(user: { email: string; password: string; }): Observable<any> {
-    return this.http.post('https://api.escuelajs.co/api/v1/auth/login', user).pipe(
+    return this.http.post('http://127.0.0.1:8000/admin/teams/user/add/', user).pipe(
       tap((tokens: any) => this.doLoginUser(user.email, JSON.stringify(tokens))),
     );
   }
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   getCurrentAuthUser() {
-    return this.http.get('https://api.escuelajs.co/api/v1/auth/login');
+    return this.http.get('http://127.0.0.1:8000/admin/teams/user/add/');
   }
 
   isLoggedIn() {
@@ -70,7 +70,7 @@ export class AuthService {
       // if (!tokens) return;
       tokens = JSON.parse(tokens).refresh_token;
       let refreshToken = tokens.refresh_token;
-      return this.http.post<any>('https://api.escuelajs.co/api/v1/auth/refresh-token', {
+      return this.http.post<any>('http://127.0.0.1:8000/admin/teams/user/add/', {
         refreshToken,
       }).pipe(
         tap((tokens: any) => this.storeJwtToken(tokens.access_token))
@@ -86,5 +86,3 @@ interface DecodedToken {
   exp: number;
   [key: string]: any;
 }
-
-

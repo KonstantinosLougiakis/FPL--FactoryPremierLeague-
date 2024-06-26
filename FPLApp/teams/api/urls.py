@@ -1,6 +1,6 @@
 from django.urls import path
 from teams.api.views import TeamListCreateAPIView, TeamDetailAPIView, PlayerCreateAPIView, PlayerDetailAPIView
-from .views import UserLoginView, UserRegistrationView, CheckUsernameView
+from .views import UserListCreateAPIView, UserLoginView, UserRegistrationView, CheckUsernameView
 
 urlpatterns = [
     path("teams/", TeamListCreateAPIView.as_view(), name="team-list"),
@@ -10,4 +10,5 @@ urlpatterns = [
     path("register/", UserRegistrationView.as_view(), name="user-registration"),
     path("login/", UserLoginView.as_view(), name="user-login"),
     path("check-username/", CheckUsernameView.as_view(), name="check-username"),
+    path("teams/user/", UserListCreateAPIView.as_view(), name="user-list"),
 ]

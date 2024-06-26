@@ -48,7 +48,7 @@ export class UserRegistrationComponent implements OnInit {
     if (this.registrationForm.valid) 
       {
         const user = this.registrationForm.value as UserPerson;
-        console.log(user);
+        // console.log(user);
       this.authService.register(user).subscribe(
         response => {
           console.log('Registration successful', response);
