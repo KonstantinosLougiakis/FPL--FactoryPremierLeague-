@@ -42,6 +42,7 @@ export class TeamListComponent implements OnInit {
 
   ngOnInit(): void {
     this.teamService.getTeams().subscribe((data: Team[]) => {
+      console.log(data);
       this.teams = data.sort((a, b) => a.name.localeCompare(b.name));
       // Move Nottingham Forest to the end
       const nottinghamForestIndex = this.teams.findIndex(team => team.name === 'Nottingham Forest');

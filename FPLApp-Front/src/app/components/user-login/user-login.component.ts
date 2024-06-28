@@ -22,8 +22,7 @@ export class UserLoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  login(event: Event) {
-    event.preventDefault();
+  login() {
     console.log(`Login: ${this.email} / ${this.password}`);
     this.authService.login({
       email: this.email,

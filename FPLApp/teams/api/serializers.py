@@ -3,7 +3,7 @@ from teams.models import Team, Player
 from django.contrib.auth.models import User
 
 class UserLoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    email = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

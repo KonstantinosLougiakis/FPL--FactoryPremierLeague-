@@ -15,13 +15,13 @@ export class WelcomeComponent {
   user?: any;
 
   constructor() {
-    this.authService.login({
-        email: 'john@mail.com',
-        password: 'changeme',
-    }).subscribe((r)=>{
-        this.authService.getCurrentAuthUser().subscribe((r)=>console.log(r));
-        this.user = r;
-    });
+    // this.authService.login({
+    //     email: 'john@mail.com',
+    //     password: 'changeme',
+    // }).subscribe((r)=>{
+    //     this.authService.getCurrentAuthUser().subscribe((r)=>console.log(r));
+    //     this.user = r;
+    // });
   }
 
   logout() {

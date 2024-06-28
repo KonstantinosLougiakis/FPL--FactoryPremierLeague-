@@ -18,7 +18,7 @@ export class AuthService {
   constructor() { }
 
   login(user: { email: string; password: string; }): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/admin/teams/user/add/', user).pipe(
+    return this.http.post('http://127.0.0.1:8000/api/login/', user).pipe(
       tap((tokens: any) => this.doLoginUser(user.email, JSON.stringify(tokens))),
     );
   }
