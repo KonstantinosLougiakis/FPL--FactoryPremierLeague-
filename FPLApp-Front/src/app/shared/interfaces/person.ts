@@ -1,3 +1,5 @@
+import { Player, Team } from "./teams";
+
 export interface Person {
     // username: string;
     givenName: string;
@@ -14,4 +16,10 @@ export interface UserPerson {
     email: string;
     password: string;
     confirmPassword: string;
+}
+
+export interface UserProfile {
+    id: number;
+    favorite_team: Team;
+    my_team_players: Player[];
 }

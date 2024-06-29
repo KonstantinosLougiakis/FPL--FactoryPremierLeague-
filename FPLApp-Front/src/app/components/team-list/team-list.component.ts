@@ -1,9 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { TeamService } from 'src/app/services/team.service';
+import { Player, TeamService } from 'src/app/services/team.service';
 import { Team } from 'src/app/shared/interfaces/teams';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+// import { UserProfileService } from 'src/app/services/my-team.service';
+import { UserProfile } from 'src/app/shared/interfaces/person';
 
 @Component({
   selector: 'app-team-list',
@@ -15,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class TeamListComponent implements OnInit {
 
   teamService = inject(TeamService);
+  // userProfileService = inject(UserProfileService);
+  // userProfile: UserProfile | undefined;
   teams: Team[] = [];
   toggledTeams: { [key: string]: boolean } = {};
   teamColors: { [key: string]: string } = {
@@ -55,6 +59,10 @@ export class TeamListComponent implements OnInit {
         this.toggledTeams[team.name] = false; 
       });
     });
+
+    // this.userProfileService.getUserProfile().subscribe((profile: UserProfile) => {
+    //   this.userProfile = profile;
+    // });
   }
 
   togglePlayers(teamName: string): void {
@@ -64,4 +72,13 @@ export class TeamListComponent implements OnInit {
   getTeamColor(teamName: string): string {
     return this.teamColors[teamName] || '#ffffff'; 
   }
+
+  // selectFavoriteTeam(team: Team): void {
+  //   if (this.userProfile) {
+  //     this.userProfile.favorite_team = team;
+  //     this.userProfileService.updateUserProfile(this.userProfile).subscribe((data: UserProfile) => {
+  //       this.userProfile = data;
+  //     });
+  //   }
+  // }
 }

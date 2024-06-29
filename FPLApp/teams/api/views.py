@@ -1,14 +1,16 @@
-from rest_framework import generics, mixins, permissions, status
+from rest_framework import generics, mixins, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from teams.models import UserProfile
+from .serializers import UserProfileSerializer
 
-from teams.models import Team, Player
+from teams.models import MyTeam, Team, Player
 from teams.api.serializers import TeamSerializer, PlayerSerializer
 from teams.api.permissions import IsAdminOrReadOnly, IsAdminOrReadOnlyForCreate
-from .serializers import UserLoginSerializer, UserRegistrationSerializer
+from .serializers import MyTeamSerializer, UserLoginSerializer, UserRegistrationSerializer
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -195,3 +197,40 @@ class PlayerListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, ge
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+class MyTeamListCreateAPIView(generics.ListCreateAPIView):
+    """
+    API view to list and create my teams.
+    """
+    queryset = MyTeam.objects.all()
+    serializer_class = MyTeamSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(user=user)
+
+class MyTeamDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API view to retrieve, update, and delete a my team.
+    """
+    queryset = MyTeam.objects.all()
+    serializer_class = MyTeamSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """
+    API view to retrieve, update, and delete a user profile.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def queryset(self):
+        return UserProfile.objects.filter(user=self.request.user)
+    
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

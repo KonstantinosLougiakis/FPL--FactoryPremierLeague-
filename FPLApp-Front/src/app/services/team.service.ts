@@ -56,4 +56,9 @@ export class MyTeamService {
     this.players = this.players.filter((player) => player.id !== playerId);
     this.playersSubject.next(this.players);
   }
+
+  saveMyTeam(myTeam: any) {
+    this.players = myTeam.players;
+    this.playersSubject.next(this.players);
+  }
 }

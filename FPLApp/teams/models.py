@@ -42,6 +42,7 @@ class Player(models.Model):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     position = models.CharField(max_length=30)
+    # price = models.DecimalField(max_digits=10, decimal_places=2)
     pref_foot = models.CharField(max_length=50)
     nationality = models.CharField(max_length=50)
     age = models.IntegerField(validators=[MinValueValidator(16), MaxValueValidator(40)])
@@ -61,6 +62,19 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+class MyTeam(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="my_team")
+    budget = models.DecimalField(max_digits=10, decimal_places=2)
+
+class MyTeamPlayer(models.Model):
+    my_team = models.ForeignKey(MyTeam, on_delete=models.CASCADE, related_name="players")
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    # price = models.DecimalField(max_digits=10, decimal_places=2)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    favorite_team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="favorite_team")
+    my_team_players = models.ManyToManyField(Player, related_name="my_team_players")
 
     def __str__(self):
-        return self.username
+        return self.user.username

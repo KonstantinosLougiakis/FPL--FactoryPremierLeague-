@@ -8,5 +8,5 @@
         <input type="password" name="password" placeholder="Password" [(ngModel)]="password" />
     </div>
 
-    <button>Login</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!email || !password">Login</button>
 </form>

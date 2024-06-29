@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from teams.models import Team, Player
+from teams.models import MyTeamPlayer, Team, Player, UserProfile, MyTeam, User
 from django.contrib.auth.models import User
 
 class UserLoginSerializer(serializers.Serializer):
@@ -38,3 +38,23 @@ class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = '__all__'
+
+class MyTeamPlayerSerializer(serializers.ModelSerializer):
+    player = PlayerSerializer()
+
+    class Meta:
+        model = MyTeamPlayer
+        fields = ['player']
+
+class MyTeamSerializer(serializers.ModelSerializer):
+    players = MyTeamPlayerSerializer(many=True)
+
+    class Meta:
+        model = Team
+        fields = ['user', 'players']
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserProfile
+        fields = ['favorite_team', 'my_team_players']

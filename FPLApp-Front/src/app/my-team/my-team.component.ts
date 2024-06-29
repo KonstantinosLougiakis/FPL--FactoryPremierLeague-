@@ -22,12 +22,14 @@ export class MyTeamComponent implements OnInit {
     nationality: '',
     age: 0
   };
+  myTeam: any = { budget: 100, players: [] };
 
   constructor(private teamService: MyTeamService) {}
 
   ngOnInit(): void {
     this.teamService.players$.subscribe(players => this.players = players);
-  }
+    // this.teamService.myTeam$.subscribe(myTeam => this.myTeam = myTeam);
+  }  
 
   addPlayer() {
     if (this.newPlayer.lastname && this.newPlayer.position && this.newPlayer.team) {
@@ -48,5 +50,9 @@ export class MyTeamComponent implements OnInit {
 
   removePlayer(playerId: number) {
     this.teamService.removePlayer(playerId);
+  }
+
+  saveMyTeam() {
+    this.teamService.saveMyTeam(this.myTeam);
   }
 }

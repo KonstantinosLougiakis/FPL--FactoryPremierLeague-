@@ -1,25 +1,28 @@
-<div class="container mt-5">
-    <h2>My Team</h2>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let player of players">
-        {{ player.lastname }} - {{ player.position }} - {{ player.team }}
-        <button class="btn btn-danger btn-sm float-right" (click)="removePlayer(player.id)">Remove</button>
-      </li>
-    </ul>
-    <div class="mt-3">
-      <h3>Add New Player</h3>
-      <form (ngSubmit)="addPlayer()">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Lastname" [(ngModel)]="newPlayer.lastname" name="name" required>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Position" [(ngModel)]="newPlayer.position" name="position" required>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Team" [(ngModel)]="newPlayer.team" name="team" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Player</button>
-      </form>
+<div class="container">
+    <h2 class="title">My Team</h2>
+    <p class="budget">Budget: £{{ myTeam.budget }}</p>
+  
+    <div class="content">
+      <div class="players-section">
+        <h3>Available Players</h3>
+        <ul class="player-list">
+          <li *ngFor="let player of players" class="player-item">
+            <span class="player-info">{{ player.lastname }} ({{ player.position }})</span>
+            <button class="add-button" (click)="addPlayer()">Add</button>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="team-section">
+        <h3>Roster</h3>
+        <ul class="team-list">
+          <li *ngFor="let player of myTeam.players" class="team-item">
+            <span class="team-info">{{ player.name }} ({{ player.position }})</span>
+            <button class="remove-button" (click)="removePlayer(player)">Remove</button>
+          </li>
+        </ul>
+        <button class="save-button" (click)="saveMyTeam()">Save My Team</button>
+      </div>
     </div>
   </div>
   
