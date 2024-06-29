@@ -18,8 +18,19 @@ export interface UserPerson {
     confirmPassword: string;
 }
 
-export interface UserProfile {
-    id: number;
-    favorite_team: Team;
-    my_team_players: Player[];
+// export interface UserProfile {
+//     id: number;
+//     favorite_team: Team;
+//     my_team_players: Player[];
+// }
+
+export interface Credentials {
+    email: string;
+    password: string;
+}
+
+export interface LoggedInUser {
+    first_name: string;
+    last_name: string;
+    email: string;
 }

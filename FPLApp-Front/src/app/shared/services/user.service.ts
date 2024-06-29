@@ -1,16 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, effect, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Person, UserPerson } from '../interfaces/person';
+import { Credentials, LoggedInUser, Person, UserPerson } from '../interfaces/person';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private apiUrl = 'http://localhost:8000/api';
+  
+  user = signal<LoggedInUser | null>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    effect(() => {
+      if (this.user()) {
+        console.log('User logged in: ', this.user().first_name);
+      } else {
+        console.log('No user logged in');
+      }
+    })
+   }
 
   checkUsername(username: string): Observable<boolean> {
     return this.http.get<{ available: boolean }>(`${this.apiUrl}/check-username/?username=${username}`).pipe(
@@ -23,7 +33,7 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/register/`, user);
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login/`, credentials);
+  login(credentials: Credentials): Observable<any> {
+    return this.http.post<{access_token: string}>(`${this.apiUrl}/login/`, credentials);
   }
 }

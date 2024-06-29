@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { Credentials, LoggedInUser } from 'src/app/shared/interfaces/person';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-user-login',
@@ -20,7 +22,22 @@ export class UserLoginComponent {
   email = '';
   password = '';
   authService = inject(AuthService);
+  userService = inject(UserService);
   router = inject(Router);
+
+  invalidLogin = false;
+
+  onSubmit() {
+    const credentials = this.loginForm.value as Credentials;
+    this.userService.login(credentials).subscribe((r) => {
+      const { access_token } = r.access_token;
+      localStorage.setItem('access_token', access_token);
+      // const decodedTokenSubject = jwtDecode(access_token).sub as unknown as LoggedInUser;
+      // this.authService.setLoggedInUser(decodedTokenSubject);
+
+      this.router.navigate(['/my-team']);
+    })
+  }
 
   login() {
     console.log(`Login: ${this.email} / ${this.password}`);
@@ -30,7 +47,11 @@ export class UserLoginComponent {
     }).subscribe((r)=>{
       alert('Login successful');
       this.router.navigate(['/welcome']);
-    })
+    }),
+    error => {
+      console.error('Login error', error);
+      this.invalidLogin = true;
+    }
   }
 }
 

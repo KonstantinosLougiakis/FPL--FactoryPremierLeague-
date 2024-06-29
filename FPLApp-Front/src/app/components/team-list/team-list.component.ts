@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 // import { UserProfileService } from 'src/app/services/my-team.service';
-import { UserProfile } from 'src/app/shared/interfaces/person';
+// import { UserProfile } from 'src/app/shared/interfaces/person';
 
 @Component({
   selector: 'app-team-list',

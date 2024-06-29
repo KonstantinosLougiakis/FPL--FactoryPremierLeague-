@@ -15,7 +15,7 @@ export const routes: Routes = [
     { path: 'teams', component: TeamListComponent },
     { path: 'login', component: UserLoginComponent },
     { path: 'register', component: UserRegistrationComponent },
-    { path: 'my-team', component: MyTeamComponent },
+    { path: 'my-team', component: MyTeamComponent, canActivate: [authGuard] },
     { path: 'welcome', component: WelcomeComponent, canActivate: [authGuard] },
     { path: '', redirectTo: '/welcome', pathMatch: 'full' },
     { path: '**', component: WelcomeComponent },
