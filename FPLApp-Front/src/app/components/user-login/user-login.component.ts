@@ -40,18 +40,26 @@ export class UserLoginComponent {
   }
 
   login() {
-    console.log(`Login: ${this.email} / ${this.password}`);
-    this.authService.login({
-      email: this.email,
-      password: this.password,
-    }).subscribe((r)=>{
-      alert('Login successful');
-      this.router.navigate(['/welcome']);
-    }),
-    error => {
-      console.error('Login error', error);
-      this.invalidLogin = true;
-    }
+    this.invalidLogin = false;
+    const credentials: Credentials = { email: this.email, password: this.password };
+    this.authService.login(credentials).subscribe(
+      (response) => {
+        alert('Login successful');
+        this.userService.user.set({
+          first_name: response.first_name,
+          last_name: response.last_name,
+          email: response.email
+        });
+        this.router.navigate(['/welcome']);
+      },
+      (error) => {
+        if (error.status === 400 || error.status === 500) {
+          this.invalidLogin = true;
+        } else {
+          console.error('Login error', error);
+        }
+      }
+    )
   }
 }
 

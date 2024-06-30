@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient) {
     effect(() => {
       if (this.user()) {
-        console.log('User logged in: ', this.user().first_name);
+        console.log('User logged in');
       } else {
         console.log('No user logged in');
       }
