@@ -1,0 +1,29 @@
+.fpl-button {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fpl-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fpl-button h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.fpl-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #dc3545; /* Bootstrap text-danger-emphasis color */
+    text-transform: uppercase;
+}
+
+.fpl-title:hover {
+    color: #c82333; /* Slightly darker shade for hover effect */
+    text-decoration: none; /* Remove underline on hover */
+}
