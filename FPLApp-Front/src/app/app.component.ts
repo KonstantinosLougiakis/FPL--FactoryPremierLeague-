@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MyTeamService } from './services/team.service';
 import { MyTeamComponent } from "./my-team/my-team.component";
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -15,6 +16,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     providers: [MyTeamService],
-    imports: [RouterLink, RouterOutlet, MyMenuComponent, TeamListComponent, UserRegistrationComponent, UserLoginComponent, CommonModule, MyTeamComponent, NavbarComponent]
+    imports: [RouterLink, RouterOutlet, MyMenuComponent, TeamListComponent, UserRegistrationComponent, UserLoginComponent, CommonModule, MyTeamComponent, NavbarComponent, FormsModule]
 })
 export class AppComponent {}

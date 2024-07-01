@@ -32,6 +32,9 @@ export class UserLoginComponent {
     this.userService.login(credentials).subscribe((r) => {
       const { access_token } = r.access_token;
       localStorage.setItem('access_token', access_token);
+      const token = localStorage.getItem('JWT_TOKEN');
+      localStorage.setItem('JWT_TOKEN', token);
+      const decodedToken = jwtDecode(token);
       // const decodedTokenSubject = jwtDecode(access_token).sub as unknown as LoggedInUser;
       // this.authService.setLoggedInUser(decodedTokenSubject);
 
@@ -50,7 +53,7 @@ export class UserLoginComponent {
           last_name: response.last_name,
           email: response.email
         });
-        this.router.navigate(['/welcome']);
+        this.router.navigate(['/my-team']);
       },
       (error) => {
         if (error.status === 400 || error.status === 500) {

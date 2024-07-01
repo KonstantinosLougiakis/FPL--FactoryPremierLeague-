@@ -1,10 +1,10 @@
-import { Injectable, effect, inject, signal } from '@angular/core';
+import { Injectable, inject, effect, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Credentials, LoggedInUser, UserPerson } from '../interfaces/person';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { LoggedInUser, Credentials, UserPerson } from '../interfaces/person';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,26 @@ import { Router } from '@angular/router';
 export class UserService {
   private apiUrl = 'http://localhost:8000/api';
   router = inject(Router);
-  
   user = signal<LoggedInUser | null>(this.getUserFromToken());
 
   constructor(private http: HttpClient) {
+    const token = sessionStorage.getItem('JWT_TOKEN');
+    if (token) {
+      const user = this.decodeToken(token);
+      this.user.set(user);
+    }
     effect(() => {
       if (this.user()) {
         console.log('User logged in');
-      } else {
-        console.log('No user logged in');
       }
+      // } else {
+      //     console.log('No user logged in');
+      // }
     });
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('JWT_TOKEN');
   }
 
   checkUsername(username: string): Observable<boolean> {
@@ -32,16 +41,15 @@ export class UserService {
   }
 
   register(user: UserPerson): Observable<any> {
-    console.log(user);
     return this.http.post(`${this.apiUrl}/register/`, user);
   }
 
   login(credentials: Credentials): Observable<any> {
-    return this.http.post<{ access_token: string }>(`${this.apiUrl}/login/`, credentials).pipe(
+    return this.http.post<{ JWT_TOKEN: string }>(`${this.apiUrl}/login/`, credentials).pipe(
       map(response => {
-        const accessToken = response.access_token;
-        localStorage.setItem('access_token', accessToken);
-        const user = this.decodeToken(accessToken);
+        const jwtToken = response.JWT_TOKEN;
+        sessionStorage.setItem('JWT_TOKEN', jwtToken); 
+        const user = this.decodeToken(jwtToken);
         this.user.set(user);
         return response;
       })
@@ -50,28 +58,36 @@ export class UserService {
 
   logout() {
     this.user.set(null);
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('JWT_TOKEN');
+    sessionStorage.removeItem('JWT_TOKEN'); 
     this.router.navigate(['/login']);
   }
 
-  private decodeToken(token: string): LoggedInUser {
+  private decodeToken(token: string): LoggedInUser | null {
     try {
+      if (!token) {
+        console.error('Token is undefined or null');
+        return null;
+      }
+      
       const decoded: any = jwtDecode(token);
-      console.log('Decoded token:', decoded);
+      if (!decoded || !decoded.user) {
+        console.error('Invalid token structure');
+        return null;
+      }
+
       return {
-        first_name: decoded.user?.first_name,
-        last_name: decoded.user?.last_name,
-        email: decoded.user?.email
+        first_name: decoded.user.first_name,
+        last_name: decoded.user.last_name,
+        email: decoded.user.email
       };
     } catch (error) {
-      console.error('Invalid token specified', error);
+      console.error('Error decoding token', error);
       return null;
     }
   }
   
   private getUserFromToken(): LoggedInUser | null {
-    const token = localStorage.getItem('access_token');
+    const token = sessionStorage.getItem('JWT_TOKEN');
     return token ? this.decodeToken(token) : null;
   }
 }

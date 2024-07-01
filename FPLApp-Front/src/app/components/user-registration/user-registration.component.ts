@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -18,8 +18,11 @@ import { Person, UserPerson } from 'src/app/shared/interfaces/person';
 })
 export class UserRegistrationComponent implements OnInit {
   registrationForm: FormGroup;
+  userService = inject(UserService);
 
-  constructor(private fb: FormBuilder, private authService: UserService, private router: Router) {}
+  constructor(private fb: FormBuilder, private authService: UserService, private router: Router) {
+    this.userService = authService
+  }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({

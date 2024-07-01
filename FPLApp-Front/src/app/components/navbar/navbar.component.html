@@ -1,5 +1,5 @@
 <nav class="d-flex gap-5 align-items-center navbar justify-content-between">
-    <div class="border border-dark rounded-3 overflow-hidden">
+    <div class="brand-container border border-dark rounded-3 overflow-hidden">
         <div class="bg-warning text-dark fpl-button p-2">
             <h1 role="button" class="m-0 text-dark fw-bold" routerLink="welcome">FPL</h1>
         </div>
@@ -7,15 +7,16 @@
     <h1 class="bg-transparent text-white rounded-3 m-0 text-uppercase fpl-title text-decoration-underline">
         Factory Premier League
     </h1>
-    @if(user()) {
-        <span class="me-3 d-flex gap-2 text-light">
-            Logout
-            <mat-icon role="button" (click)="logout()">logout"></mat-icon>
+    <div class="auth-actions">
+        <span *ngIf="userService.isLoggedIn(); else login" class="me-3 d-flex gap-2 text-light align-items-center">
+            Welcome to FPL App! You can<strong>Logout</strong>here:
+            <mat-icon role="button" (click)="logout()">logout</mat-icon>
         </span>
-    } @else {
-        <span class="me-3 d-flex gap-2 text-light align-items-center">
-            Login
-        <mat-icon role="button" class="icon-link-hover" routerLink="login">login</mat-icon>
-        </span>
-    }
+        <ng-template #login>
+            <span class="me-3 d-flex gap-2 text-light align-items-center">
+                Login
+                <mat-icon role="button" class="icon-link-hover" routerLink="login">login</mat-icon>
+            </span>
+        </ng-template>
+    </div>
 </nav>
