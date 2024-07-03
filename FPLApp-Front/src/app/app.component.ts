@@ -5,10 +5,11 @@ import { TeamListComponent } from "./components/team-list/team-list.component";
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { CommonModule } from '@angular/common';
-import { MyTeamService } from './services/team.service';
+import { TeamService } from './services/team.service';
 import { MyTeamComponent } from "./my-team/my-team.component";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
+import { MyTeamService } from './services/my-team.service';
 
 @Component({
     selector: 'app-root',

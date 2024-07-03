@@ -55,6 +55,8 @@ class MyTeamSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
+    favourite_team = TeamSerializer(many=True)
+
     class Meta:
         model = UserProfile
-        fields = ['favorite_team', 'my_team_players']
+        fields = ['favourite_team', 'my_team_players']

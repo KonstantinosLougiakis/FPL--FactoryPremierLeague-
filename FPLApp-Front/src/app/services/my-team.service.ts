@@ -1,49 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+export interface Player {
+  id: number;
+  firstname: string;
+  lastname: string;
+  position: string;
+  pref_foot: string;
+  nationality: string;
+  age: number;
+  team: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyTeamService {
-  private apiUrl = 'http://localhost:8000/api/my-teams/';
+  private apiUrl = 'http://localhost:8000';
 
-  constructor(private http: HttpClient) { }
+  private playersSubject = new BehaviorSubject<Player[]>([]);
+  players$ = this.playersSubject.asObservable();
 
-  getMyTeams(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  private players: Player[] = [];
+
+  addPlayer(player: Player) {
+    this.players.push(player);
+    this.playersSubject.next(this.players);
   }
 
-  createMyTeam(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+  removePlayer(playerId: number) {
+    this.players = this.players.filter((player) => player.id !== playerId);
+    this.playersSubject.next(this.players);
   }
 
-  updateMyTeam(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}${id}/`, data);
-  }
-
-  deleteMyTeam(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}${id}/`);
-  }
-
-  saveMyTeam(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+  saveMyTeam(myTeam: any) {
+    this.players = myTeam.players;
+    this.playersSubject.next(this.players);
   }
 }
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class UserProfileService {
-//   private apiUrl = 'http://localhost:8000/api/user-profile/';
-
-//   constructor(private http: HttpClient) { }
-
-//   getUserProfile(): Observable<any> {
-//     return this.http.get(this.apiUrl);
-//   }
-
-//   updateUserProfile(data: any): Observable<any> {
-//     return this.http.put(this.apiUrl, data);
-//   }
-// }

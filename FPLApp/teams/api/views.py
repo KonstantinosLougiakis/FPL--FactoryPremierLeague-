@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from teams.models import UserProfile
 from .serializers import UserProfileSerializer
-
 from teams.models import MyTeam, Team, Player
 from teams.api.serializers import TeamSerializer, PlayerSerializer
 from teams.api.permissions import IsAdminOrReadOnly, IsAdminOrReadOnlyForCreate
@@ -14,6 +13,11 @@ from .serializers import MyTeamSerializer, UserLoginSerializer, UserRegistration
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from .serializers import UserLoginSerializer
 
 @csrf_exempt
 @ensure_csrf_cookie
@@ -61,62 +65,6 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
-# views.py
-from rest_framework import generics, permissions, status
-from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate
-from .serializers import UserLoginSerializer
-
-# class UserLoginView(generics.GenericAPIView):
-#     """
-#     API view to handle user login.
-#     """
-#     permission_classes = [permissions.AllowAny]
-#     serializer_class = UserLoginSerializer
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         print("Request data:", request.data)  # Debugging statement
-#         if not serializer.is_valid():
-#             print("Validation errors:", serializer.errors)  # Debugging statement
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         user = authenticate(email=serializer.validated_data['email'], password=serializer.validated_data['password'])
-#         if user:
-#             token, created = Token.objects.get_or_create(user=user)
-#             return Response({'token': token.key}, status=status.HTTP_200_OK)
-#         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-
-# class UserLoginView(generics.GenericAPIView):
-#     """
-#     API view to handle user login.
-#     """
-#     permission_classes = [permissions.AllowAny]
-#     serializer_class = UserLoginSerializer
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         print("Request data:", request.data)  # Debugging statement
-#         if not serializer.is_valid():
-#             print("Validation errors:", serializer.errors)  # Debugging statement
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         email = serializer.validated_data['email']
-#         password = serializer.validated_data['password']
-        
-#         # Authenticate user by email
-#         try:
-#             user = User.objects.get(email=email)
-#         except User.DoesNotExist:
-#             return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-        
-#         user = authenticate(username=user.username, password=password)
-        
-#         if user:
-#             token, created = Token.objects.get_or_create(user=user)
-#             return Response({'token': token.key}, status=status.HTTP_200_OK)
-        
-#         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLoginView(generics.GenericAPIView):
     """
@@ -183,6 +131,10 @@ class PlayerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
+    # permission_classes = [permissions.AllowAny]
+
+    # def get(self, request, *args, **kwargs):
+    #     return self.retrieve(request, *args, **kwargs)
 
 class PlayerListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     """

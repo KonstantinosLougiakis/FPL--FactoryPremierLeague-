@@ -20,5 +20,6 @@ export class MyMenuComponent {
     { text: 'Login', routerLink: 'login' },
     { text: 'Register', routerLink: 'register' },
     { text: 'My Team', routerLink: 'my-team' },
+    { text: 'Favourite Teams', routerLink: 'favourite-teams' }
   ];
 }

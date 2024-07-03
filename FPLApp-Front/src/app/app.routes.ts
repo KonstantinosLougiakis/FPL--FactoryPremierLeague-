@@ -8,6 +8,7 @@ import { ForDirectiveComponent } from './components/for-directive/for-directive.
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { authGuard } from './guards/auth.guard';
 import { MyTeamComponent } from './my-team/my-team.component';
+import { FavouriteTeamsComponent } from './components/favourite-teams/favourite-teams.component';
 
 export const routes: Routes = [
     { path: 'component-input', component: ComponentInputComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
     { path: 'login', component: UserLoginComponent },
     { path: 'register', component: UserRegistrationComponent },
     { path: 'my-team', component: MyTeamComponent, canActivate: [authGuard] },
+    { path: 'favourite-teams', component: FavouriteTeamsComponent, canActivate: [authGuard] },
     { path: 'welcome', component: WelcomeComponent, canActivate: [authGuard] },
     { path: '', redirectTo: '/welcome', pathMatch: 'full' },
     { path: '**', component: WelcomeComponent },

@@ -1,4 +1,5 @@
 export interface Team {
+    id: number;
     name: string;
     year_founded: number;
     stadium: string;
@@ -16,4 +17,6 @@ export interface Player {
     pref_foot: string;
     nationality: string;
     age: number;
+    id: number;
+    team: string;
 }

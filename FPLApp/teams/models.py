@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-# from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # class CustomUserManager(BaseUserManager):
 #     def create_user(self, email, password=None, **extra_fields):
@@ -78,3 +78,6 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+# class CustomUser(AbstractUser):
+#     favourite_teams = models.ManyToManyField(Team, blank="True")

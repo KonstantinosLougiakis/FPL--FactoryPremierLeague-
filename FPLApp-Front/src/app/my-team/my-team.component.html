@@ -1,23 +1,35 @@
 <div class="container">
     <h2 class="title">My Team</h2>
-    <p class="budget">Budget: £{{ myTeam.budget }}</p>
+    <!-- <p class="budget">Budget: £{{ myTeam.budget }}</p> -->
   
     <div class="content">
       <div class="players-section">
         <h3>Available Players</h3>
         <ul class="player-list">
-          <li *ngFor="let player of players" class="player-item">
-            <span class="player-info">{{ player.lastname }} ({{ player.position }})</span>
-            <button class="add-button" (click)="addPlayer()">Add</button>
-          </li>
-        </ul>
-      </div>
+          <li *ngFor="let team of teams" class="player-item">
+            <span class="player-info">{{ team.name }}</span>
+            <button mat-button (click)="togglePlayers(team.name)">
+              {{ toggledTeams[team.name] ? 'Hide Players' : 'Show Players' }}
+            </button>
+          
+        <div *ngIf="toggledTeams[team.name]" class="players-list">
+          <h5>Players</h5>
+          <ul>
+            <li *ngFor="let player of team.players">
+              <strong>{{ player.firstname }} {{ player.lastname }}</strong> - {{ player.position }}
+            </li>
+          </ul>
+        </div>
+        </li>
+      </ul>
+    </div>
+      
   
       <div class="team-section">
         <h3>Roster</h3>
         <ul class="team-list">
           <li *ngFor="let player of myTeam.players" class="team-item">
-            <span class="team-info">{{ player.name }} ({{ player.position }})</span>
+            <span class="team-info">{{ player.lastname }} ({{ player.position }})</span>
             <button class="remove-button" (click)="removePlayer(player)">Remove</button>
           </li>
         </ul>
