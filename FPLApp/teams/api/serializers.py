@@ -60,3 +60,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['favourite_team', 'my_team_players']
+
+class CheckUsernameView(serializers.Serializer):
+    serializer_class = UserLoginSerializer

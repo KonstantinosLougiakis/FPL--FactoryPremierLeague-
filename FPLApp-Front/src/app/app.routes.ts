@@ -9,6 +9,7 @@ import { UserRegistrationComponent } from './components/user-registration/user-r
 import { authGuard } from './guards/auth.guard';
 import { MyTeamComponent } from './components/my-team/my-team.component';
 import { FavouriteTeamsComponent } from './components/favourite-teams/favourite-teams.component';
+import { SwaggerComponent } from './components/swagger/swagger.component';
 
 export const routes: Routes = [
     { path: 'component-input', component: ComponentInputComponent },
@@ -18,6 +19,7 @@ export const routes: Routes = [
     { path: 'register', component: UserRegistrationComponent },
     { path: 'my-team', component: MyTeamComponent, canActivate: [authGuard] },
     { path: 'favourite-teams', component: FavouriteTeamsComponent, canActivate: [authGuard] },
+    { path: 'swagger', component: SwaggerComponent },
     { path: 'welcome', component: WelcomeComponent, canActivate: [authGuard] },
     { path: '', redirectTo: '/welcome', pathMatch: 'full' },
     { path: '**', component: WelcomeComponent },
