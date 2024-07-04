@@ -37,6 +37,9 @@ class CheckUsernameView(generics.GenericAPIView):
             is_taken = User.objects.filter(username=username).exists()
             return Response({'available': not is_taken}, status=status.HTTP_200_OK)
         return Response({'error': 'Username parameter not provided'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get_serializer_class(self):
+        return super().get_serializer_class()
 
 class UserRegistrationView(generics.CreateAPIView):
     """

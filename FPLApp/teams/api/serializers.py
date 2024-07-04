@@ -62,4 +62,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ['favourite_team', 'my_team_players']
 
 class CheckUsernameView(serializers.Serializer):
-    serializer_class = UserLoginSerializer
+
+    queryset = User.objects.all()
+    serializer_class = UserRegistrationSerializer
+
+    def get_serializer_class(self):
+        return self.serializer_class
