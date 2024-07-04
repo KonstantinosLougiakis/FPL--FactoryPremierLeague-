@@ -1,1 +1,1 @@
-Factory Premier League is an FPL-like app developed with a variety of technologies like Angular, Django etc. The app allows users to manage players, teams and view various statistics.
+Factory Premier League is an FPL-like app developed with a variety of technologies like Angular, Django etc. The app allows users to manage players, teams, choosing your favourite team and creating your own team, choosing from the already existing players pool.
