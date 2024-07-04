@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { TeamService, Player } from '../services/team.service';
-import { MyTeamService } from '../services/my-team.service';
-import { Team } from '../shared/interfaces/teams';
+import { TeamService, Player } from '../../services/team.service';
+import { MyTeamService } from '../../services/my-team.service';
+import { Team } from '../../shared/interfaces/teams';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';

@@ -7,7 +7,7 @@ import { ComponentInputComponent } from './components/component-input/component-
 import { ForDirectiveComponent } from './components/for-directive/for-directive.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { authGuard } from './guards/auth.guard';
-import { MyTeamComponent } from './my-team/my-team.component';
+import { MyTeamComponent } from './components/my-team/my-team.component';
 import { FavouriteTeamsComponent } from './components/favourite-teams/favourite-teams.component';
 
 export const routes: Routes = [

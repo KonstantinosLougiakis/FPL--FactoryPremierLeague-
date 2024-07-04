@@ -113,6 +113,7 @@ button.mat-button:hover {
 
 .save-button:hover {
   background-color: #218838;
+  color: white;
 }
 
 .save-message {
