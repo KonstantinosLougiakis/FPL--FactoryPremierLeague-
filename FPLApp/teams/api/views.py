@@ -28,6 +28,8 @@ class CheckUsernameView(generics.GenericAPIView):
     """
     API view to check if a username is available.
     """
+    queryset = User.objects.all()
+    serializer_class = UserRegistrationSerializer
 
     permission_classes = [permissions.AllowAny]
 

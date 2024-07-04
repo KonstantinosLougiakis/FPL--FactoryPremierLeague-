@@ -63,8 +63,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class CheckUsernameView(serializers.Serializer):
 
-    queryset = User.objects.all()
-    serializer_class = UserRegistrationSerializer
+    username = serializers.CharField()
 
-    def get_serializer_class(self):
-        return self.serializer_class
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Username already exists")
+        return value
+    
+    
