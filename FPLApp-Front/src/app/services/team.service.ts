@@ -27,7 +27,7 @@ export class TeamService {
     );
   }
 
-  getPlayers(): Observable<Player[]> {
+  getPlayers(teamId: number): Observable<Player[]> {
     return this.http.get<Player[]>(`${this.apiUrl}/api/teams/`, {
       headers: new HttpHeaders({
         'Accept': 'application/json',
@@ -37,5 +37,5 @@ export class TeamService {
     );
   }
 }
-export { Player };
 
+export { Player };

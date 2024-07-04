@@ -1,133 +1,144 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background: #f0f0f0;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    border-radius: 8px;
-    background: #ffffff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-top: 5px solid #3c1361; /* Premier League purple */
-  }
-  
-  .title {
-    text-align: center;
-    color: #3c1361; /* Premier League purple */
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .budget {
-    text-align: center;
-    font-size: 1.3em;
-    margin-bottom: 20px;
-    color: #d71920; /* Premier League red */
-  }
-  
+.container.my-team-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #007bff;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.teams-section, .roster-section {
+  flex: 1;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.team-list, .roster-list, .player-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team-item, .roster-item, .player-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-item:hover, .roster-item:hover, .player-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.team-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #343a40;
+}
+
+button.mat-button {
+  margin-left: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button.mat-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.show-players-btn, .save-button, .btn-success, .btn-danger {
+  font-size: 1em;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.show-players-btn:hover, .save-button:hover, .btn-success:hover, .btn-danger:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.player-info {
+  margin-right: 10px;
+  font-size: 1em;
+  color: #495057;
+}
+
+.roster-section {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #dff0d8;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.save-button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  background-color: #28a745;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #218838;
+}
+
+.save-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
   .content {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
   }
-  
-  .players-section, .team-section {
-    flex: 1;
-    margin: 0 10px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
+
+  .team-item, .roster-item, .player-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  h3 {
-    text-align: center;
-    color: #3c1361; /* Premier League purple */
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    text-transform: uppercase;
+
+  button.mat-button {
+    margin-left: 0;
+    margin-top: 10px;
   }
-  
-  .player-list, .team-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .player-item, .team-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    margin-bottom: 10px;
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .player-item:hover, .team-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .player-info, .team-info {
-    font-size: 1.1em;
-    color: #333;
-    flex: 1;
-  }
-  
-  .add-button, .remove-button, .save-button {
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-  }
-  
-  .add-button {
-    background-color: #28a745; /* Green */
-    color: #fff;
-  }
-  
-  .add-button:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-  }
-  
-  .remove-button {
-    background-color: #dc3545; /* Red */
-    color: #fff;
-  }
-  
-  .remove-button:hover {
-    background-color: #c82333;
-    transform: scale(1.05);
-  }
-  
-  .save-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2em;
-    background-color: #007bff; /* Blue */
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background 0.3s, transform 0.3s;
-  }
-  
-  .save-button:hover {
-    background-color: #0069d9;
-    transform: scale(1.05);
-  }
-  
+
+  .save-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }  
+}

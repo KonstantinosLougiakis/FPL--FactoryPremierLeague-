@@ -1,40 +1,37 @@
 <div class="container">
-    <h2 class="title">My Team</h2>
-    <!-- <p class="budget">Budget: £{{ myTeam.budget }}</p> -->
+  <h2 class="title">My Team</h2>
   
-    <div class="content">
-      <div class="players-section">
-        <h3>Available Players</h3>
-        <ul class="player-list">
-          <li *ngFor="let team of teams" class="player-item">
-            <span class="player-info">{{ team.name }}</span>
-            <button mat-button (click)="togglePlayers(team.name)">
-              {{ toggledTeams[team.name] ? 'Hide Players' : 'Show Players' }}
-            </button>
-          
-        <div *ngIf="toggledTeams[team.name]" class="players-list">
-          <h5>Players</h5>
-          <ul>
-            <li *ngFor="let player of team.players">
-              <strong>{{ player.firstname }} {{ player.lastname }}</strong> - {{ player.position }}
-            </li>
-          </ul>
-        </div>
+  <div class="content">
+    <div class="teams-section">
+      <h3>Teams</h3>
+      <div class="team-list">
+        <li *ngFor="let team of teams" class="team-item">
+          <span class="team-name">{{ team.name }}</span>
+          <button mat-button (click)="togglePlayers(team)">
+            {{ playersByTeam[team.name] ? 'Hide Players' : 'Show Players' }}
+          </button>
+          <div *ngIf="toggledTeams[team.name]" class="player-list">
+            <ul>
+              <li *ngFor="let player of team.players" class="player-item">
+                <strong>{{ player.firstname }} {{ player.lastname }}</strong>
+                <button mat-button (click)="addPlayerToMyTeam(player)">Add to Roster</button>
+              </li>
+            </ul>
+          </div>
         </li>
-      </ul>
-    </div>
-      
-  
-      <div class="team-section">
-        <h3>Roster</h3>
-        <ul class="team-list">
-          <li *ngFor="let player of myTeam.players" class="team-item">
-            <span class="team-info">{{ player.lastname }} ({{ player.position }})</span>
-            <button class="remove-button" (click)="removePlayer(player)">Remove</button>
-          </li>
-        </ul>
-        <button class="save-button" (click)="saveMyTeam()">Save My Team</button>
       </div>
     </div>
+
+    <div class="roster-section">
+      <h3>Roster</h3>
+      <ul class="roster-list">
+        <li *ngFor="let player of myTeamPlayers" class="roster-item">
+          <span class="player-info">{{ player.firstname }} {{ player.lastname }}</span>
+          <button mat-button (click)="removePlayerFromMyTeam(player.id)">Remove</button>
+        </li>
+      </ul>
+      <button mat-button class="save-button" (click)="saveMyTeam()">Save My Team</button>
+      <p *ngIf="showSaveMessage" class="save-message">Your players have been saved to your team!</p>
+    </div>
   </div>
-  
+</div>
