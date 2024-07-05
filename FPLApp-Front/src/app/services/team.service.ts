@@ -36,6 +36,18 @@ export class TeamService {
       catchError(this.handleError)
     );
   }
+
+  getFavouriteTeams(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/favourite-teams/`);
+  }
+
+  addFavouriteTeam(teamId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/favourite-teams/`, { team_name: teamId });
+  }
+
+  removeFavouriteTeam(teamId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/api/favourite-teams/${teamId}/`);
+  }
 }
 
 export { Player };

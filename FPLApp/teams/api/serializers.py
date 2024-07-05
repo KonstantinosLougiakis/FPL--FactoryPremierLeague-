@@ -70,4 +70,7 @@ class CheckUsernameView(serializers.Serializer):
             raise serializers.ValidationError("Username already exists")
         return value
     
-    
+class FavouriteTeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = '__all__'

@@ -4,8 +4,8 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from teams.models import UserProfile
-from .serializers import UserProfileSerializer
+from teams.models import FavouriteTeam, UserProfile
+from .serializers import FavouriteTeamSerializer, UserProfileSerializer
 from teams.models import MyTeam, Team, Player
 from teams.api.serializers import TeamSerializer, PlayerSerializer
 from teams.api.permissions import IsAdminOrReadOnly, IsAdminOrReadOnlyForCreate
@@ -191,3 +191,34 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class FavouriteTeamListCreateAPIView(generics.ListCreateAPIView):
+    """
+    API view to list and create favourite teams.
+    """
+    queryset = FavouriteTeam.objects.all()
+    serializer_class = FavouriteTeamSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        return FavouriteTeam.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+    
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+class FavouriteTeamDestroyView(generics.DestroyAPIView):
+    """
+    API view to destroy a favourite team.
+    """
+    queryset = FavouriteTeam.objects.all()
+    serializer_class = FavouriteTeamSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        return FavouriteTeam.objects.filter(user=self.request.user)

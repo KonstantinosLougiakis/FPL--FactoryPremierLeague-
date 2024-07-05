@@ -1,6 +1,6 @@
 from django.urls import include, path
 from teams.api.views import TeamListCreateAPIView, TeamDetailAPIView, PlayerCreateAPIView, PlayerDetailAPIView
-from .views import UserListCreateAPIView, UserLoginView, UserRegistrationView, CheckUsernameView, UserProfileViewSet
+from .views import FavouriteTeamDestroyView, FavouriteTeamListCreateAPIView, UserListCreateAPIView, UserLoginView, UserRegistrationView, CheckUsernameView, UserProfileViewSet
 from rest_framework.routers import DefaultRouter 
 
 router = DefaultRouter()
@@ -18,5 +18,7 @@ urlpatterns = [
     path("my-teams/", UserListCreateAPIView.as_view(), name="my-team-list-create"),
     path("my-teams/<int:pk>/", UserListCreateAPIView.as_view(), name="my-team-detail"),
     path("user-profile/", UserListCreateAPIView.as_view(), name="user-profile"),
+    path("favourite-teams/", FavouriteTeamListCreateAPIView.as_view(), name="favourite-teams-list-create"),
+    path("favourite-teams/<int:pk>/", FavouriteTeamDestroyView.as_view(), name="favourite-teams-destroy"),
     # path('', include(router.urls)),
 ]

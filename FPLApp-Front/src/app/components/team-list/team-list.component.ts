@@ -72,13 +72,4 @@ export class TeamListComponent implements OnInit {
   getTeamColor(teamName: string): string {
     return this.teamColors[teamName] || '#ffffff'; 
   }
-
-  // selectFavoriteTeam(team: Team): void {
-  //   if (this.userProfile) {
-  //     this.userProfile.favorite_team = team;
-  //     this.userProfileService.updateUserProfile(this.userProfile).subscribe((data: UserProfile) => {
-  //       this.userProfile = data;
-  //     });
-  //   }
-  // }
 }

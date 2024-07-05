@@ -81,3 +81,10 @@ class UserProfile(models.Model):
     
 # class CustomUser(AbstractUser):
 #     favourite_teams = models.ManyToManyField(Team, blank="True")
+
+class FavouriteTeam(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favourite_teams")
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="favourite_team")
+
+    def __str__(self):
+        return f"{self.user.username} - {self.team.name}"
