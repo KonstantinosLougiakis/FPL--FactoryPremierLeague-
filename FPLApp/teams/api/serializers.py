@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from teams.models import MyTeamPlayer, Team, Player, UserProfile, MyTeam, User
+from teams.models import FavouriteTeam, MyTeamPlayer, Team, Player, UserProfile, MyTeam, User
 from django.contrib.auth.models import User
 
 class UserLoginSerializer(serializers.Serializer):
@@ -71,6 +71,7 @@ class CheckUsernameView(serializers.Serializer):
         return value
     
 class FavouriteTeamSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = Team
+        model = FavouriteTeam
         fields = '__all__'

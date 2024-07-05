@@ -201,7 +201,8 @@ class FavouriteTeamListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        return FavouriteTeam.objects.filter(user=self.request.user)
+        user = self.request.user
+        return FavouriteTeam.objects.filter(user=user)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -221,4 +222,5 @@ class FavouriteTeamDestroyView(generics.DestroyAPIView):
     permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        return FavouriteTeam.objects.filter(user=self.request.user)
+        user = self.request.user
+        return user.username

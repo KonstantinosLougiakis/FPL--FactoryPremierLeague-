@@ -73,7 +73,7 @@ class MyTeamPlayer(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    favorite_team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="favorite_team")
+    favorite_team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="favourite_teams")
     my_team_players = models.ManyToManyField(Player, related_name="my_team_players")
 
     def __str__(self):
